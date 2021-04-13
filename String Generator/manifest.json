@@ -1,0 +1,7 @@
+{
+  "name": "String Generator",
+  "id": "963194961227459389",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}
