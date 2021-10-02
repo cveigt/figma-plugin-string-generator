@@ -1,17 +1,53 @@
-<h2>Rectangle Creator</h2>
-<p>Count: <input id="count" value="5"></p>
+<h2>DataFaker</h2>
+<form id="options">
+  <input
+    type="radio"
+    name="option"
+    id="date"
+    name="data_to_generate"
+    value="Date"
+  />
+  <label for="date">Date</label><br />
+  <input
+    type="radio"
+    name="option"
+    id="api-key"
+    name="data_to_generate"
+    value="API key"
+  />
+  <label for="api-key">API key</label><br />
+  <input
+    type="radio"
+    name="option"
+    id="datetime"
+    name="data_to_generate"
+    value="Datetime"
+  />
+  <label for="datetime">Datetime</label>
+</form>
 <button id="create">Create</button>
 <button id="cancel">Cancel</button>
 <script>
+  document.getElementById("create").onclick = () => {
+    if (document.getElementById("date").checked) {
+      console.log("date");
+      parent.postMessage({ pluginMessage: { type: "create-fake-date" } }, "*");
+    }
+    if (document.getElementById("api-key").checked) {
+      parent.postMessage(
+        { pluginMessage: { type: "create-fake-api-key" } },
+        "*"
+      );
+    }
+    if (document.getElementById("datetime").checked) {
+      parent.postMessage(
+        { pluginMessage: { type: "create-fake-datetime" } },
+        "*"
+      );
+    }
+  };
 
-document.getElementById('create').onclick = () => {
-  const textbox = document.getElementById('count');
-  const count = parseInt(textbox.value, 10);
-  parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*')
-}
-
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
-
+  document.getElementById("cancel").onclick = () => {
+    parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+  };
 </script>
