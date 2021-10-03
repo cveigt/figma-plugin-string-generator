@@ -10,6 +10,8 @@ figma.showUI(__html__);
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
 
+figma.ui.resize(400, 280);
+
 figma.ui.onmessage = (msg) => {
   // One way of distinguishing between different types of messages sent from
   // your HTML page is to use an object with a "type" property like this.
@@ -37,6 +39,31 @@ figma.ui.onmessage = (msg) => {
     figma.currentPage.selection = nodes;
     figma.viewport.scrollAndZoomIntoView(nodes);
   }
+  if (msg.type === "create-fake-US-number") {
+    const nodes = [];
+    const text = figma.createText();
+    text.characters = "+1(555)777-8899";
+    nodes.push(text);
+    figma.currentPage.selection = nodes;
+    figma.viewport.scrollAndZoomIntoView(nodes);
+  }
+  if (msg.type === "create-fake-EU-number") {
+    const nodes = [];
+    const text = figma.createText();
+    text.characters = "+49(555)777-8899";
+    nodes.push(text);
+    figma.currentPage.selection = nodes;
+    figma.viewport.scrollAndZoomIntoView(nodes);
+  }
+  if (msg.type === "create-fake-timestamp") {
+    const nodes = [];
+    const text = figma.createText();
+    text.characters = new Date().now();
+    nodes.push(text);
+    figma.currentPage.selection = nodes;
+    figma.viewport.scrollAndZoomIntoView(nodes);
+  }
+
   // Make sure to close the plugin when you're done. Otherwise the plugin will
   // keep running, which shows the cancel button at the bottom of the screen.
   figma.closePlugin();
@@ -53,3 +80,12 @@ function generateApiKey() {
   }
   return result;
 }
+
+function randomDate(start, end) {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+}
+
+const d = randomDate(new Date(2012, 0, 1), new Date());
+console.log(d);
