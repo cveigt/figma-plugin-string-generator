@@ -1,32 +1,78 @@
-<h2>DataFaker</h2>
-<form id="options">
-  <input
-    type="radio"
-    name="option"
-    id="date"
-    name="data_to_generate"
-    value="Date"
-  />
-  <label for="date">Date</label><br />
-  <input
-    type="radio"
-    name="option"
-    id="api-key"
-    name="data_to_generate"
-    value="API key"
-  />
-  <label for="api-key">API key</label><br />
-  <input
-    type="radio"
-    name="option"
-    id="datetime"
-    name="data_to_generate"
-    value="Datetime"
-  />
-  <label for="datetime">Datetime</label>
-</form>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
+  rel="stylesheet"
+/>
+<div class="wrapper">
+  <h2>
+    <img
+      src="https://i.ibb.co/TrrfRpZ/logo.png"
+      alt="logo"
+      border="0"
+    />DataFaker
+  </h2>
+
+  <form id="options">
+    <input
+      class="custom02"
+      type="radio"
+      name="option"
+      id="date"
+      name="data_to_generate"
+      value="Date"
+    />
+    <label for="date">Date</label><br />
+    <input
+      class="custom02"
+      type="radio"
+      name="option"
+      id="api-key"
+      name="data_to_generate"
+      value="API key"
+    />
+    <label for="api-key">API key</label><br />
+    <input
+      class="custom02"
+      type="radio"
+      name="option"
+      id="datetime"
+      name="data_to_generate"
+      value="Datetime"
+    />
+    <label for="datetime">Datetime</label><br />
+    <input
+      class="custom02"
+      type="radio"
+      name="option"
+      id="US-Number"
+      name="data_to_generate"
+      value="US-Number"
+    />
+    <label for="datetime">US Phone number</label><br />
+    <input
+      class="custom02"
+      type="radio"
+      name="option"
+      id="EU-Number"
+      name="data_to_generate"
+      value="EU-Number"
+    />
+    <label for="datetime">EU Phone number</label><br />
+    <input
+      class="custom02"
+      type="radio"
+      name="option"
+      id="timestamp"
+      name="data_to_generate"
+      value="Timestamp"
+    />
+    <label for="datetime">Timestamp</label>
+  </form>
+  <button id="create">Generate</button>
+  <button id="cancel" class="secondary">Close</button>
+</div>
+
 <script>
   document.getElementById("create").onclick = () => {
     if (document.getElementById("date").checked) {
@@ -45,9 +91,132 @@
         "*"
       );
     }
+    if (document.getElementById("US-Number").checked) {
+      parent.postMessage(
+        { pluginMessage: { type: "create-fake-US-number" } },
+        "*"
+      );
+    }
+    if (document.getElementById("EU-Number").checked) {
+      parent.postMessage(
+        { pluginMessage: { type: "create-fake-EU-number" } },
+        "*"
+      );
+    }
+    if (document.getElementById("timestamp").checked) {
+      parent.postMessage(
+        { pluginMessage: { type: "create-fake-timestamp" } },
+        "*"
+      );
+    }
   };
 
   document.getElementById("cancel").onclick = () => {
     parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
   };
 </script>
+
+<style>
+  * {
+    font-family: "Inter", sans-serif;
+  }
+
+  div.wrapper {
+    margin: 20px 10px 100px 10px;
+    height: 400px;
+  }
+
+  h2 {
+    display: flex;
+  }
+
+  h2 img {
+    width: 28px;
+    margin-right: 10px;
+  }
+
+  button {
+    background-color: rgb(63, 192, 139);
+    color: white;
+    border-color: rgb(63, 192, 139);
+
+    appearance: none;
+    border-radius: 0.4em;
+
+    cursor: pointer;
+    align-self: center;
+    font-weight: 400;
+    line-height: 1;
+    margin: 5px;
+    padding: 0.6em 0.6em;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  button.secondary {
+    background-color: white;
+    color: rgb(63, 192, 139);
+    border-color: rgb(63, 192, 139);
+
+    appearance: none;
+    border-radius: 0.4em;
+
+    cursor: pointer;
+    align-self: center;
+    font-weight: 400;
+    line-height: 1;
+    margin: 5px;
+    padding: 0.6em 0.6em;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .custom02 input[type="radio"] {
+    display: none;
+  }
+  .custom02 label {
+    position: relative;
+    display: inline-block;
+    padding: 3px 3px 3px 20px;
+    cursor: pointer;
+  }
+  .custom02 label::before,
+  .custom02 label::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+  .custom02 label::before {
+    left: 0;
+    width: 14px;
+    height: 14px;
+    margin-top: -8px;
+    background: #f3f3f3;
+    border: 1px solid #ccc;
+  }
+  .custom02 label:hover::before {
+    background: #fff;
+  }
+  .custom02 label::after {
+    opacity: 0;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    background: rgb(29, 34, 65);
+    -webkit-transform: scale(2);
+    transform: scale(2);
+  }
+  .custom02 input[type="radio"]:checked + label::before {
+    background: #fff;
+    border: 1px solid rgb(29, 34, 65);
+  }
+  .custom02 input[type="radio"]:checked + label::after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+</style>
